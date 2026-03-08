@@ -1,0 +1,68 @@
+### 变量定义
+@baseUrl = http://localhost:3000
+
+### ============================================
+### 卫星 API 测试
+### ============================================
+
+### 获取卫星列表
+GET {{baseUrl}}/api/satellites
+
+### 获取卫星列表（分页）
+GET {{baseUrl}}/api/satellites?page=1&pageSize=10
+
+### 获取单个卫星详情
+GET {{baseUrl}}/api/satellites/1
+
+### 获取不存在的卫星（测试 404）
+GET {{baseUrl}}/api/satellites/999
+
+### 创建卫星（成功）
+POST {{baseUrl}}/api/satellites
+Content-Type: application/json
+
+{
+  "name": "Starlink-123",
+  "altitude": 550,
+  "status": "active"
+}
+
+### 创建卫星（缺少名称 - 测试 400）
+POST {{baseUrl}}/api/satellites
+Content-Type: application/json
+
+{
+  "altitude": 550
+}
+
+### 创建卫星（轨道高度无效 - 测试 400）
+POST {{baseUrl}}/api/satellites
+Content-Type: application/json
+
+{
+  "name": "Test-Sat",
+  "altitude": -100
+}
+
+### 更新卫星
+PUT {{baseUrl}}/api/satellites/1
+Content-Type: application/json
+
+{
+  "name": "ISS-Updated",
+  "altitude": 420
+}
+
+### 更新不存在的卫星（测试 404）
+PUT {{baseUrl}}/api/satellites/999
+Content-Type: application/json
+
+{
+  "name": "Not-Exist"
+}
+
+### 删除卫星
+DELETE {{baseUrl}}/api/satellites/1
+
+### 删除不存在的卫星（测试 404）
+DELETE {{baseUrl}}/api/satellites/999
